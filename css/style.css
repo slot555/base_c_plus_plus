@@ -10,6 +10,21 @@ body {
 p{
     margin: 10px 0;
 }
+pre{
+    color: rgb(98, 121, 101);
+}
+ul{
+    margin: 15px;
+}
+table{
+    border: 1px solid black;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+}
+td{
+    border: 1px solid black;
+    padding: 5px;
+}
 .lesson{
     width: 1200px;
     margin: 0 auto;

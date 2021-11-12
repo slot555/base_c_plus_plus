@@ -119,11 +119,1100 @@
         return 0;
     }
                 </pre>
+                Функции могут и не возвращать значения. Чтобы сообщить компилятору, что функция не возвращает значение, 
+                нужно использовать тип возврата <b>void</b>. <br>
+                Почему нужно возвращать значения обратно в операционную систему? Дело в том, что возвращаемое значение 
+                функции main() является кодом состояния, который сообщает операционной системе об успешном или неудачном 
+                выполнении программы.
+            </p>
+        </div>
+    </div>
+    <div class="lesson">
+        <div class="header">
+            <h3>Урок №13. Параметры и аргументы функций</h3>
+        </div>
+        <div class="content">
+            <p>
+                <pre>
+    int add(int a, int b)
+    {
+    return a + b;
+    }
+                </pre>
+            </p>
+        </div>
+    </div>
+    <div class="lesson">
+        <div class="header">
+            <h3>Урок №14.Зачем использовать функции?</h3>
+        </div>
+        <div class="content">
+            <ul>
+                <li>
+                    <b>Структура.</b> Как только программы увеличиваются в размере/сложности, сохранять весь код внутри 
+                    main() становится трудно.
+                </li>
+                <li>
+                    <b>Повторное использование.</b> После объявления функции, её можно вызывать много раз.
+                </li>
+                <li>
+                    <b>Тестирование.</b> Поскольку функции убирают лишний код, то и тестировать его становится проще.
+                </li>
+                <li>
+                    <b>Модернизация.</b> Когда нужно внести изменения в программу или расширить её функционал, то функции 
+                    являются отличным вариантом.
+                </li>
+                <li>
+                    <b>Абстракция.</b> Для того, чтобы использовать функцию, нам нужно знать её имя, данные ввода, данные 
+                    вывода и где эта функция находится. Нам не нужно знать, как она работает.
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="lesson">
+        <div class="header">
+            <h3>Урок №17. Операторы</h3>
+        </div>
+        <div class="content">
+            <p>
+                <b>Литерал</b> — это фиксированное значение, которое записывается непосредственно в исходном коде 
+                (например, 7 или 3.14159).
+            </p>
+            <ul>Операторы бывают трёх типов:
+                <li>
+                    <b>Унарные.</b> Работают с одним операндом. Например, оператор − (минус). В выражении −7, 
+                    оператор − применяется только к одному операнду (7), чтобы создать новое значение (−7).
+                </li>
+                <li>
+                    <b>Бинарные.</b> Работают с двумя операндами (левым и правым). Например, оператор +. В выражении 
+                    5 + 2, оператор + работает с левым операндом (5) и правым (2), чтобы создать новое значение (7).
+                </li>
+                <li>
+                    <b>Тернарные.</b> Работают с тремя операндами (в языке C++ есть только один тернарный оператор).
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="lesson">
+        <div class="header">
+            <h3>Урок №19. Прототип функции и Предварительное объявление</h3>
+        </div>
+        <div class="content">
+            <p>
+                <pre>
+    #include &lt;iostream&gt;
+
+    int add(int x, int y); // предварительное объявление функции add() (используется её прототип)
+        
+    int main()
+    {
+        std::cout << "The sum of 3 and 4 is: " << add(3, 4) << std::endl; // это работает, так как мы предварительно (выше функции main()) объявили функцию add()
+        return 0;
+    }
+        
+    int add(int x, int y) // хотя определение функции add() находится ниже её вызова
+    {
+        return x + y;
+    }
+                </pre>
+            </p>
+        </div>
+    </div>
+    <div class="lesson">
+        <div class="header">
+            <h3>Урок №20. Многофайловые программы</h3>
+        </div>
+        <div class="content">
+            <p>
+                <pre>
+    #include "add.cpp"
+                </pre>
+            </p>
+        </div>
+    </div>
+    <div class="lesson">
+        <div class="header">
+            <h3>Урок №21. Заголовочные файлы</h3>
+        </div>
+        <div class="content">
+            <p>
+                add.h
+                <pre>
+    // Начнем с директив препроцессора. ADD_H – это произвольное уникальное имя (обычно используется имя заголовочного файла)
+    #ifndef ADD_H
+    #define ADD_H
+    
+    // А это уже содержимое заголовочного файла
+    int add(int x, int y); // прототип функции add() (не забывайте точку с запятой в конце!)
+    
+    // Заканчиваем директивой препроцессора
+    #endif
+                </pre>
+                main.cpp, в котором мы подключаем add.h:
+                <pre>
+    #include &lt;iostream&gt;
+    #include "add.h"
+        
+    int main()
+    {
+        std::cout << "The sum of 3 and 4 is " << add(3, 4) << std::endl;
+        return 0;
+    }                    
+                </pre>
+                add.cpp
+                <pre>
+    int add(int x, int y)
+    {
+        return x + y;
+    }
+                </pre>
+            </p>
+        </div>
+    </div>
+    <div class="lesson">
+        <div class="header">
+            <h3>Урок №22. Директивы препроцессора</h3>
+        </div>
+        <div class="content">
+            <p>
+                <ul><b>Директива #include</b>
+                    <li>
+                        <b>#include &lt;filename&gt;</b>, которая сообщает препроцессору искать файл в системных путях
+                    </li>
+                    <li>
+                        <b>#include "filename"</b>, которая сообщает препроцессору искать файл в текущей директории проекта.
+                    </li>
+                </ul>
+                <ul><b>Директива #define.</b> Директиву #define можно использовать для создания макросов. Макрос — это правило, 
+                    которое определяет конвертацию идентификатора в указанные данные.
+                    <li>
+                        <b>Макросы-функции</b> ведут себя как функции и используются в тех же целях.
+                    </li>
+                    <li>
+                        <b>Макросы-объекты</b> можно определить одним из следующих двух способов: <b>#define идентификатор</b> 
+                        или: <b>#define идентификатор текст_замена</b>
+                    </li>
+                </ul>
+                <pre>
+    #define MY_FAVORITE_NUMBER 9
+                </pre>
+            </p>
+            <p>
+                <b>Условная компиляция</b>
+                <pre>
+    #define PRINT_JOE
+    
+    #ifdef PRINT_JOE
+    std::cout << "Joe def" << std::endl;
+    #endif
+    
+    #ifdef PRINT_BOB
+    std::cout << "Bob def" << std::endl;
+    #endif
+
+    #ifndef PRINT_BOB
+    std::cout << "Bob undef" << std::endl;
+    #endif
+                </pre>
+            </p>
+        </div>
+    </div>
+    <div class="lesson">
+        <div class="header">
+            <h3>Урок №23. Header guards и #pragma once</h3>
+        </div>
+        <div class="content">
+            <p>
+                <b>Проблема дублирования объявлений</b>
+                <pre>
+    int main()
+    {
+        int x; // это объявление идентификатора x
+        int x; // ошибка компиляции: дублирование объявлений
+        
+        return 0;
+    }                    
+                </pre>
+                <b>Header guards</b>
+                <pre>
+    #ifndef MATH_H
+    #define MATH_H
+    
+    int getSquareSides()
+    {
+        return 4;
+    }
+    
+    #endif
+                </pre>
+                <b>#pragma once</b>
+                <pre>
+    #pragma once
+
+    // основная часть кода
+                </pre>
+            </p>
+        </div>
+    </div>
+    <div class="lesson">
+        <div class="header">
+            <h3>Урок №24. Конфликт имен и std namespace</h3>
+        </div>
+        <div class="content">
+            <p>
+                Самый простой способ сообщить компилятору, что определенный идентификатор находится в определенном пространстве 
+                имен — использовать оператор разрешения области видимости ::. Например:
+                <pre>
+    std::cout << "Hello, world!";
+                </pre>
+                Здесь мы сообщаем компилятору, что хотим использовать объект cout из пространства имен std.
+            </p>
+        </div>
+    </div>
+    <div class="lesson">
+        <div class="header">
+            <h3>Урок №28. Инициализация, присваивание и объявление переменных</h3>
+        </div>
+        <div class="content">
+            <p>
+                <b>Фундаментальные типы данных в С++</b>
+                <table>
+                    <tr>
+                        <td>Категория</td>
+                        <td>Тип</td>
+                        <td>Значение</td>
+                        <td>Пример</td>
+                    </tr>
+                    <tr>
+                        <td>Логический тип данных</td>
+                        <td>bool</td>
+                        <td>true или false</td>
+                        <td>true</td>
+                    </tr>
+                    <tr>
+                        <td>Символьный тип данных</td>
+                        <td>char, wchar_t, char16_t, char32_t</td>
+                        <td>Один из ASCII-символов</td>
+                        <td>‘c’</td>
+                    </tr>
+                    <tr>
+                        <td>Тип данных с плавающей запятой</td>
+                        <td>float, double, long double</td>
+                        <td>Десятичная дробь</td>
+                        <td>3.14159</td>
+                    </tr>
+                    <tr>
+                        <td>Целочисленный тип данных</td>
+                        <td>short, int, long, long long</td>
+                        <td>Целое число</td>
+                        <td>64</td>
+                    </tr>
+                    <tr>
+                        <td>Пустота</td>
+                        <td>void</td>
+                        <td>Пустота</td>
+                    </tr>
+                </table>
+                <ol><b>Инициализация переменных</b>
+                    <li>
+                        Способ №1: Копирующая инициализация
+                        <pre>
+    int nValue = 5; // копирующая инициализация
+                        </pre>
+                    </li>
+                    <li>
+                        Способ №2: Прямая инициализация
+                        <pre>
+    int nValue(5); // прямая инициализация                            
+                        </pre>
+                    </li>
+                    <li>
+                        uniform-инициализация
+                        <pre>
+    int value{5};
+                        </pre>
+                    </li>
+                </ol>
+
+            </p>
+        </div>
+    </div>
+    <div class="lesson">
+        <div class="header">
+            <h3>Урок №30. Размер типов данных</h3>
+        </div>
+        <div class="content">
+            <table class="tabluc" style="margin-bottom: 15px;">
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td><strong><span class="raznui_kolir_td">Тип</span></strong></td>
+                        <td><strong><span class="raznui_kolir_td">Минимальный размер</span></strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong><span class="raznui_kolir_td">Логический тип данных</span></strong></td>
+                        <td>bool</td>
+                        <td>1 байт</td>
+                    </tr>
+                    <tr>
+                        <td><strong><span class="raznui_kolir_td">Символьный тип данных</span></strong></td>
+                        <td>char</td>
+                        <td>1 байт</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>wchar_t</td>
+                        <td>1 байт</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>char16_t</td>
+                        <td>2 байта</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>char32_t</td>
+                        <td>4 байта</td>
+                    </tr>
+                    <tr>
+                        <td><strong><span class="raznui_kolir_td">Целочисленный тип данных</span></strong></td>
+                        <td>short</td>
+                        <td>2 байта</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>int</td>
+                        <td>2 байта</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>long</td>
+                        <td>4 байта</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>long long</td>
+                        <td>8 байт</td>
+                    </tr>
+                    <tr>
+                        <td><strong><span class="raznui_kolir_td">Тип данных с плавающей запятой</span></strong></td>
+                        <td>float</td>
+                        <td>4 байта</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>double</td>
+                        <td>8 байт</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>long double</td>
+                        <td>8 байт</td>
+                    </tr>
+                </tbody>
+            </table>
+            <pre>
+    #include &lt;iostream&gt;
+
+    int main()
+    {
+        std::cout << "bool:\t\t" << sizeof(bool) << " bytes" << std::endl;
+        std::cout << "char:\t\t" << sizeof(char) << " bytes" << std::endl;
+        std::cout << "wchar_t:\t" << sizeof(wchar_t) << " bytes" << std::endl;
+        std::cout << "char16_t:\t" << sizeof(char16_t) << " bytes" << std::endl;  
+        std::cout << "char32_t:\t" << sizeof(char32_t) << " bytes" << std::endl;    
+        std::cout << "short:\t\t" << sizeof(short) << " bytes" << std::endl;
+        std::cout << "int:\t\t" << sizeof(int) << " bytes" << std::endl;
+        std::cout << "long:\t\t" << sizeof(long) << " bytes" << std::endl;
+        std::cout << "long long:\t" << sizeof(long long) << " bytes" << std::endl;
+        std::cout << "float:\t\t" << sizeof(float) << " bytes" << std::endl;
+        std::cout << "double:\t\t" << sizeof(double) << " bytes" << std::endl;
+        std::cout << "long double:\t" << sizeof(long double) << " bytes" << std::endl;
+        return 0;
+    }
+            </pre>
+            <b>Примеры переполнения</b>
+            <pre>
+    #include <iostream>
+
+    int main()
+    {
+        unsigned short x = 65535; // наибольшее значение, которое может хранить 16-битная unsigned переменная
+        std::cout << "x was: " << x << std::endl;
+        x = x + 1; // 65536 - это число больше максимально допустимого числа из диапазона допустимых значений. Следовательно, произойдет переполнение, так как переменнная x не может хранить 17 бит
+        std::cout << "x is now: " << x << std::endl;
+        return 0;
+    }
+            </pre>
+            <p>
+                <b>Деление целочисленных переменных</b>
+                <pre>
+    #include <iostream>
+
+    int main()
+    {
+        std::cout << 8 / 5 << std::endl;
+        return 0;
+    }
+                </pre>
+                результат 1, а дробная часть отбрасывается
+            </p>
+        </div>
+    </div>
+    <div class="lesson">
+        <div class="header">
+            <h3>Урок №33. Типы данных с плавающей точкой: float, double и long double</h3>
+        </div>
+        <div class="content">
+            <p>
+                <pre>
+    float fValue;
+    double dValue;
+    long double dValue2;
+                </pre>
+                <b>Экспоненциальная запись</b>
+                <pre>
+    double d1(5000.0);
+    double d2(5e3); // другой способ присвоить значение 5000
+    
+    double d3(0.05);
+    double d4(5e-2); // другой способ присвоить значение 0.05
+                </pre>
+                <b>Точность и диапазон типов с плавающей точкой</b>
+                <pre>
+    #include <iostream>
+    #include <iomanip> // для std::setprecision()
+        
+    int main()
+    {
+        std::cout << std::setprecision(16); // задаем точность в 16 цифр
+        float f = 3.33333333333333333333333333333333333333f;
+        std::cout << f << std::endl;
+        double d = 3.3333333333333333333333333333333333333;
+        std::cout << d << std::endl;
+        return 0;
+    }
+                </pre>
+            </p>
+        </div>
+    </div>
+    <div class="lesson">
+        <div class="header">
+            <h3>Урок №35. Символьный тип данных char</h3>
+        </div>
+        <div class="content">
+            <p>
+                <pre>
+    #include &lt;iostream&gt;
+
+    int main()
+    {
+        char ch(97); // несмотря на то, что мы инициализируем переменную ch целым числом
+        std::cout << ch << std::endl; // cout выводит символ 
+        return 0;
+    }
+                </pre>
+            </p>
+            <h3><a href="https://ravesli.com/urok-35-simvolnyj-tip-dannyh-char/" target="_blank">Урок №35. Символьный тип данных char</a></h3>
+        </div>
+    </div>
+    <div class="lesson">
+        <div class="header">
+            <h3>Урок №37. const, constexpr и символьные константы</h3>
+        </div>
+        <div class="content">
+            <p>
+                <pre>
+    const double gravity { 9.8 };
+                </pre>
+                <b>Например</b><br>
+                файл constants.h:
+                <pre>
+    #ifndef CONSTANTS_H
+    #define CONSTANTS_H
+    
+    // Определите собственное пространство имен для хранения констант
+    namespace constants
+    {
+        const double pi(3.14159);
+        const double avogadro(6.0221413e23);
+        const double my_gravity(9.2); 
+        // ... другие константы 
+    }
+    #endif
+                </pre>
+                Используйте оператор разрешения области видимости :: для доступа к константам в файлах .cpp:
+                <pre>
+    #include "constants.h"
+    
+    //...
+    double circumference = 2 * radius * constants::pi;
+    //...
+                </pre>
+            </p>
+        </div>
+    </div>
+    <div class="lesson">
+        <div class="header">
+            <h3>Урок №39. Арифметические операторы</h3>
+        </div>
+        <div class="content">
+            <p>
+                <b>Унарные операторы</b> — это операторы, которые применяются только к одному операнду.
+                <pre>
+    х = -5
+                </pre>
+                <b>Бинарные операторы</b> — это операторы, которые применяются к двум операндам (слева и справа). <b>+, -, *, /, %</b>
+                <pre>
+    #include &lt;iostream&gt;
+
+    int main()
+    {
+        int x = 7;
+        int y = 4;
+        
+        std::cout << "int / int = " << x / y << "\n";
+        std::cout << "double / int = " << static_cast<double>(x) / y << "\n";
+        std::cout << "int / double = " << x / static_cast<double>(y) << "\n";
+        std::cout << "double / double = " << static_cast<double>(x) / static_cast<double>(y) << "\n";
+        
+        return 0;
+    }                    
+                </pre>
+                <pre>
+    int / int = 1
+    double / int = 1.75
+    int / double = 1.75
+    double / double = 1.75                    
+                </pre>
+                <b>Арифметические операторы присваивания (=, +=, -=, *=, /=, %=)</b>
+                <pre>
+    x += 5;                    
+                </pre>
+                <b>Oператор возведения в степень (pow())</b>
+                <pre>
+    #include &lt;iostream&gt;
+    #include &lt;cmath&gt; // подключаем pow()
+        
+    int main()
+    {
+        std::cout << "Enter the base: ";
+        double base;
+        std::cin >> base;
+        
+        std::cout << "Enter the exponent: ";
+        double exp;
+        std::cin >> exp;
+        
+        std::cout << base << "^" << exp << " = " << pow(base, exp) << "\n";
+        
+        return 0;
+    }                    
+                </pre>
+            </p>
+        </div>
+    </div>
+    <div class="lesson">
+        <div class="header">
+            <h3>Урок №40. Инкремент, декремент и побочные эффекты</h3>
+        </div>
+        <div class="content">
+            <p>
+                <b>Инкремент и декремент</b>
+                <pre>
+    #include &lt;iostream&gt;
+
+    int main()
+    {
+        int x = 5, y = 5;
+        std::cout << x << " " << y << std::endl;
+        std::cout << ++x << " " << --y << std::endl; // версия префикс
+        std::cout << x << " " << y << std::endl;
+        std::cout << x++ << " " << y-- << std::endl; // версия постфикс
+        std::cout << x << " " << y << std::endl;
+        
+        return 0;
+    }
+                </pre>
+                <pre>
+    5 5
+    6 4
+    6 4
+    6 4
+    7 3
+                </pre>
+                <b>Побочные эффекты</b><br>
+                Язык C++ не определяет порядок, в котором вычисляются аргументы функции. Если левый аргумент будет 
+                вычисляться первым, то add(5, 6) и результат — 11. Если правый аргумент будет вычисляться первым, 
+                то add(6, 6) и результат — 12! А проблема то кроется в побочном эффекте одного из аргументов функции add().
+                <pre>
+    #include &lt;iostream&gt;
+
+    int add(int x, int y)
+    {
+        return x + y;
+    }
+        
+    int main()
+    {
+        int x = 5;
+        int value = add(x, ++x); // здесь 5 + 6 или 6 + 6?  Это зависит от компилятора и от того, в каком порядке он будет обрабатывать аргументы функции
+        
+        std::cout << value; // результатом может быть 11 или 12
+        
+        return 0;
+    }                    
+                </pre>
+            </p>
+        </div>
+    </div>
+    <div class="lesson">
+        <div class="header">
+            <h3>Урок №41. Условный тернарный оператор, оператор sizeof и Запятая</h3>
+        </div>
+        <div class="content">
+            <p>
+                <b>Оператор sizeof</b>
+                <pre>
+    #include &lt;iostream&gt;
+
+    int main()
+    {
+        double t = 7.0;
+        std::cout << sizeof(t); // выводим размер переменной t в байтах
+    }
+                </pre>
+                <b>Оператор Запятая</b><br>
+                Обратите внимание, оператор Запятая имеет самый низкий приоритет из всех операторов (даже ниже, чем в оператора 
+                присваивания), поэтому следующие две строки кода делают не одно и то же:
+                <pre>
+    z = (a, b); // сначала вычисляется выражение (a, b), которое равняется значению b, а затем результат присваивается переменной z
+    z = a, b; // вычисляется как "(z = a), b", поэтому переменной z присваивается значение a, переменная b - игнорируется
+                </pre>
+                Большинство программистов не используют оператор Comma вообще (разве что только в циклах for). <br>
+                Обратите внимание, запятая, которая используется в вызовах функций, не является оператором Comma:
+                <pre>
+    int sum = add(x, y); // эта запятая не является оператором Comma
+                </pre>
+                <b>Условный тернарный оператор</b><br>
+                Условный (тернарный) оператор (обозначается как ?:) является единственным тернарным оператором в языке С++, который 
+                работает с 3-мя операндами. Из-за этого его часто называют просто «тернарный оператор».
+                <pre>
+    if (x > y)
+        std::cout << x;
+    else
+        std::cout << y;
+                </pre>
+                или
+                <pre>
+    std::cout << ((x > y) ? x : y);
+                </pre>
+                Стоит отметить, что условный оператор вычисляется как выражение, в то время как ветвление if/else 
+                обрабатывается как набор стейтментов. Это означает, что тернарный оператор ?: может быть использован там, 
+                где if/else применить невозможно, например, при инициализации константы:
+                <pre>
+    bool inBigClassroom = false;
+    const int classSize = inBigClassroom ? 30 : 20;                    
+                </pre>
+            </p>
+        </div>
+    </div>
+    <div class="lesson">
+        <div class="header">
+            <h3>Урок №42. Операторы сравнения</h3>
+        </div>
+        <div class="content">
+            <p>
+                <b>(>, &lt;, >=, &lt;=, ==, !=)</b>
+                <pre>
+    #include &lt;iostream&gt;
+
+    int main()
+    {
+        std::cout << "Enter an integer: ";
+        int x;
+        std::cin >> x;
+        
+        std::cout << "Enter another integer: ";
+        int y;
+        std::cin >> y;
+        
+        if (x == y)
+            std::cout << x << " equals " << y << "\n";
+        if (x != y)
+            std::cout << x << " does not equal " << y << "\n";
+        if (x > y)
+            std::cout << x << " is greater than " << y << "\n";
+        if (x < y)
+            std::cout << x << " is less than " << y << "\n";
+        if (x >= y)
+            std::cout << x << " is greater than or equal to " << y << "\n";
+        if (x <= y)
+            std::cout << x << " is less than or equal to " << y << "\n";
+        
+        return 0;
+    }
+                </pre>
+                <b>Сравнение чисел типа с плавающей точкой</b>
+                <pre>
+    #include <iostream>
+
+    int main()
+    {
+        double d1(100 - 99.99); // должно быть 0.01
+        double d2(10 - 9.99); // должно быть 0.01
+        
+        if (d1 == d2)
+            std::cout << "d1 == d2" << "\n";
+        else if (d1 > d2)
+            std::cout << "d1 > d2" << "\n";
+        else if (d1 < d2)
+            std::cout << "d1 < d2" << "\n";
+        
+        return 0;
+    }
+                </pre>
+                В вышеприведенной программе d1 = 0.0100000000000005116, а d2 = 0.0099999999999997868. Значения обоих этих 
+                чисел очень близки к 0.1, но d1 больше d2. Они не равны. <br>
+                Не рекомендуется использовать операторы == или != с числами типа с плавающей точкой. Вместо них следует 
+                использовать функцию, которая вычисляет, насколько эквивалентны эти два значения. Если разницей между ними
+                 можно пренебречь, то мы считаем их равными. Значение разницы между числами, которой можно пренебречь, 
+                 называется эпсилоном. Оно, обычно, небольшое (например, 0.0000001).
+                 <pre>
+    #include &lt;iostream&gt;
+    #include &lt;cmath&gt; // для функции fabs()
+        
+    // Возвращаем true, если разница между a и b в пределах процента эпсилона 
+    bool approximatelyEqual(double a, double b, double epsilon)
+    {
+        return fabs(a - b) <= ((fabs(a) < fabs(b) ? fabs(b) : fabs(a)) * epsilon);
+    }
+        
+    // Возвращаем true, если разница между a и b меньше absEpsilon или в пределах relEpsilon 
+    bool approximatelyEqualAbsRel(double a, double b, double absEpsilon, double relEpsilon)
+    {
+        // Проверяем числа на равенство их друг другу - это нужно в случаях, когда сравниваемые числа являются нулевыми или около нуля
+        double diff = fabs(a - b);
+        if (diff <= absEpsilon)
+            return true;
+        
+        // В противном случае, возвращаемся к алгоритму Кнута
+        return diff <= ((fabs(a) < fabs(b) ? fabs(b) : fabs(a)) * relEpsilon);
+    }
+        
+    int main()
+    {
+        // Значение a очень близко к 1.0, но, из-за ошибок округления, чуть меньше 1.0
+        double a = 0.1 + 0.1 + 0.1 + 0.1 + 0.1 + 0.1 + 0.1 + 0.1 + 0.1 + 0.1;
+        
+        std::cout << approximatelyEqual(a, 1.0, 1e-8) << "\n";     // сравниваем "почти 1.0" с 1.0
+        std::cout << approximatelyEqual(a - 1.0, 0.0, 1e-8) << "\n"; // сравниваем "почти 0.0" с 0.0
+        std::cout << approximatelyEqualAbsRel(a - 1.0, 0.0, 1e-12, 1e-8) << "\n"; // сравниваем "почти 0.0" с 0.0
+    }
+                 </pre>
+                 Результат:
+                 <pre>
+    1
+    0
+    1
+                </pre>
+                Сравнение чисел типа с плавающей точкой — сложная тема, и нет одного идеального алгоритма, который подойдет 
+                в любой ситуации. Однако для большинства случаев, с которыми вы будете сталкиваться, функции approximatelyEqualAbsRel() 
+                должно быть достаточно.
             </p>
         </div>
     </div>
     
+    <div class="lesson">
+        <div class="header">
+            <h3>Урок №43. Логические операторы: И, ИЛИ, НЕ</h3>
+        </div>
+        <div class="content">
+            <p>
+                <ul>
+                    <li><b>!</b> - Логическое НЕ</li>
+                    <li><b>&&</b> - Логическое И</li>
+                    <li><b>||</b> - Логическое ИЛИ</li>
+                </ul>
+                <pre>
+    #include &lt;iostream&gt;
+
+    int main()
+    {
+        std::cout << "Enter a number: ";
+        int value;
+        std::cin >> value;
+        
+        if (value== 0 || value== 1)
+            std::cout << "You picked 0 or 1" << std::endl;
+        else
+            std::cout << "You did not pick 0 or 1" << std::endl;
+        
+        return 0;
+    }                    
+                </pre>
+            </p>
+        </div>
+    </div>
+    <div class="lesson">
+        <div class="header">
+            <h3>Урок №51. Статические переменные</h3>
+        </div>
+        <div class="content">
+            <p>
+                Статическая продолжительность жизни:
+                <pre>
+    #include &lt;iostream&gt;
+
+    void incrementAndPrint()
+    {
+        static int s_value = 1; // переменная s_value является статической
+        ++s_value;
+        std::cout << s_value << std::endl;
+    } // переменная s_value не уничтожается здесь, но становится недоступной
+        
+    int main()
+    {
+        incrementAndPrint();
+        incrementAndPrint();
+        incrementAndPrint();
+    }
+                </pre>
+                Результат выполнения программы:
+                <pre>
+    2
+    3
+    4
+                </pre>
+            </p>
+        </div>
+    </div>
+    <div class="lesson">
+        <div class="header">
+            <h3>Урок №56. Явное преобразование (приведение) типов данных</h3>
+        </div>
+        <div class="content">
+            <p>
+                <b>Конвертация C-style</b>
+                <pre>
+    int i1 = 11;
+    int i2 = 3;
+    float x = (float)i1 / i2;
+                </pre>
+                <b>Оператор static_cast</b>
+                <pre>
+    int i1 = 11;
+    int i2 = 3;
+    float x = static_cast<float>(i1) / i2;                    
+                </pre>
+            </p>
+        </div>
+    </div>
+    <div class="lesson">
+        <div class="header">
+            <h3>Урок №57. Введение в std::string</h3>
+        </div>
+        <div class="content">
+            <p>
+                <b>Ввод/вывод строк</b>
+                <pre>
+    #include &lt;iostream&gt;
+    #include &lt;string&gt;
+        
+    int main()
+    {
+        std::string name("Sasha");
+        std::cout << "My name is " << name;
+        
+        return 0;
+    }
+                </pre>
+                <b>Использование std::getline()</b>
+                <pre>
+    int main()
+    {
+        std::cout << "Enter your full name: ";
+        std::string myName;
+        std::getline(std::cin, myName); // полностью извлекаем строку в переменную myName
     
+        std::cout << "Enter your age: ";
+        std::string myAge;
+        std::getline(std::cin, myAge); // полностью извлекаем строку в переменную myAge
+    
+        std::cout << "Your name is " << myName << " and your age is " << myAge;
+    }
+                </pre>
+                <b>Использование std::getline() c std::cin</b>
+                Правило: При вводе числовых значений не забывайте удалять символ новой строки из входного потока 
+                данных с помощью std::cin.ignore().
+                <pre>
+    int main()
+    {
+        std::cout << "Pick 1 or 2: ";
+        int choice;
+        std::cin >> choice;
+    
+        std::cin.ignore(32767, '\n'); // удаляем символ новой строки из входного потока данных
+    
+        std::cout << "Now enter your name: ";
+        std::string myName;
+        std::getline(std::cin, myName);
+    
+        std::cout << "Hello, " << myName << ", you picked " << choice << '\n';
+    
+        return 0;
+    }
+                </pre>
+                <b>Добавление строк</b>
+                <pre>
+    int main()
+    {
+        std::string x("44");
+        std::string y("12");
+        
+        std::cout << x + y << "\n"; // объединяем строки x и y (а не складываем числа)
+        x += " cats";
+        std::cout << x;
+        
+        return 0;
+    }                    
+                </pre>
+                <b>Длина строк</b>
+                <pre>
+    int main()
+
+    {
+        std::string myName("Sasha");
+        std::cout << myName << " has " << myName.length() << " characters\n";
+        return 0;
+    }                    
+                </pre>
+            </p>
+        </div>
+    </div>
+    <div class="lesson">
+        <div class="header">
+            <h3>Урок №58. Перечисления</h3>
+        </div>
+        <div class="content">
+            <p>
+                Перечисление (или «перечисляемый тип») — это тип данных, где любое значение (или «перечислитель») 
+                определяется как символьная константа. Объявить перечисление можно с помощью ключевого слова enum.
+                <pre>
+    enum ItemType
+    {
+        ITEMTYPE_GUN,
+        ITEMTYPE_ARBALET,
+        ITEMTYPE_SWORD
+    };
+        
+    std::string getItemName(ItemType itemType)
+    {
+        if (itemType == ITEMTYPE_GUN)
+            return std::string("Gun");
+        if (itemType == ITEMTYPE_ARBALET)
+            return std::string("Arbalet");
+        if (itemType == ITEMTYPE_SWORD)
+            return std::string("Sword");
+    }
+        
+    int main()
+    {
+        // ItemType - это перечисляемый тип, который мы объявили выше.
+        // itemType (с маленькой i) - это имя переменной, которую мы определяем ниже (типа ItemType).
+        // ITEMTYPE_GUN - это значение перечислителя, которое мы присваиваем переменной itemType
+        ItemType itemType(ITEMTYPE_GUN);
+        
+        std::cout << "You are carrying a " << getItemName(itemType) << "\n";
+        
+        return 0;
+    }
+                </pre>
+            </p>
+        </div>
+    </div>
+    <div class="lesson">
+        <div class="header">
+            <h3>Урок №61. Структуры</h3>
+        </div>
+        <div class="content">
+            <p>
+                <pre>
+    struct Employee
+    {
+        short id;
+        int age;
+        double salary;
+    };
+
+    Employee john; // создаем отдельную структуру Employee для John
+    john.id = 8; // присваиваем значение члену id структуры john
+    john.age = 27; // присваиваем значение члену age структуры john
+    john.salary = 32.17; // присваиваем значение члену salary структуры john
+                </pre>
+                <b>Инициализация структур</b>
+                <pre>
+    struct Employee
+    {
+        short id;
+        int age;
+        double salary;
+    };
+    
+    Employee john = { 5, 27, 45000.0 }; // john.id = 5, john.age = 27, john.salary = 45000.0
+    Employee james = { 6, 29}; // james.id = 6, james.age = 29, james.salary = 0.0 (инициализация по умолчанию)
+                </pre>
+                <b>Структуры и функции</b>
+                <pre>
+    #include &lt;iostream&gt;
+
+    struct Employee
+    {
+        short id;
+        int age;
+        double salary;
+    };
+        
+    void printInformation(Employee employee)
+    {
+        std::cout << "ID: " << employee.id << "\n";
+        std::cout << "Age: " << employee.age << "\n";
+        std::cout << "Salary: " << employee.salary << "\n";
+    }
+        
+    int main()
+    {
+        Employee john = { 21, 27, 28.45 };
+        Employee james = { 22, 29, 19.29 };
+        
+        // Выводим информацию о John
+        printInformation(john);
+        
+        std::cout << "\n";
+        
+        // Выводим информацию о James
+        printInformation(james);
+        
+        return 0;
+    }
+                </pre>
+            </p>
+        </div>
+    </div>
+    <div class="lesson">
+        <div class="header">
+            <h3>Урок №61. Структуры</h3>
+        </div>
+        <div class="content">
+        </div>
+    </div>
+    
+    
+    
+
+    
+    
+
     
 </body>
 </html>
